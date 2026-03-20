@@ -41,5 +41,20 @@ Given a TPM-style prompt, the system:
 ## Setup
 
 ### 1) Clone and enter repo
+bash
 git clone https://github.com/EMCGU87/udacity-ai-agentic-workflow-project.git
 cd udacity-ai-agentic-workflow-project
+
+### 2) Create virtual environment (recommended)
+python -m venv .venv
+# Windows PowerShell:
+.\.venv\Scripts\Activate.ps1
+
+### 3) Install dependencies
+pip install openai python-dotenv numpy pandas
+
+### 4) Configure environment - create .env in project root
+OPENAI_API_KEY=your_api_key_here
+
+
+
