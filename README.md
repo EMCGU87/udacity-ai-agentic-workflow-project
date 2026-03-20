@@ -47,7 +47,7 @@ cd udacity-ai-agentic-workflow-project
 
 ### 2) Create virtual environment (recommended)
 python -m venv .venv
-# Windows PowerShell:
+Windows PowerShell:
 .\.venv\Scripts\Activate.ps1
 
 ### 3) Install dependencies
