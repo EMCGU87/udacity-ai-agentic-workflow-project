@@ -18,17 +18,17 @@ from workflow_agents.base_agents import (  # noqa: E402
 )
 
 
-# 2 - Load OpenAI API key
+# Load OpenAI API key
 load_dotenv(project_starter_root / ".env")
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
 
-# 3 - Load Product Specification
+# Load Product Specification
 with open(script_dir / "Product-Spec-Email-Router.txt", "r", encoding="utf-8") as f:
     product_spec = f.read()
 
 
-#4 - Instantiate Action Planning Agent
+# Instantiate Action Planning Agent
 knowledge_action_planning = (
     "You are helping a Technical Program Manager coordinate product development.\n"
     "Break a project request into practical steps that should be routed to:\n"
@@ -40,7 +40,7 @@ knowledge_action_planning = (
 action_planning_agent = ActionPlanningAgent(openai_api_key, knowledge_action_planning)
 
 
-#5 - Complete Product Manager knowledge (append product spec)
+# Complete Product Manager knowledge (append product spec)
 persona_product_manager = "You are a Product Manager."
 knowledge_product_manager = (
     "You create user stories only. You do not create implementation tasks or feature architecture.\n"
@@ -50,7 +50,7 @@ knowledge_product_manager = (
 )
 
 
-#6 - Instantiate Product Manager Knowledge Agent
+# Instantiate Product Manager Knowledge Agent
 product_manager_knowledge_agent = KnowledgeAugmentedPromptAgent(
     openai_api_key,
     persona_product_manager,
@@ -58,7 +58,7 @@ product_manager_knowledge_agent = KnowledgeAugmentedPromptAgent(
 )
 
 
-# 7 - Instantiate Product Manager Evaluation Agent
+#  Instantiate Product Manager Evaluation Agent
 persona_product_manager_eval = (
     "You are an evaluation agent that checks the answers of other worker agents"
 )
@@ -89,7 +89,7 @@ program_manager_knowledge_agent = KnowledgeAugmentedPromptAgent(
 )
 
 
-#8 - Instantiate Program Manager Evaluation Agent
+#  Instantiate Program Manager Evaluation Agent
 persona_program_manager_eval = (
     "You are an evaluation agent that checks the answers of other worker agents"
 )
@@ -145,7 +145,7 @@ development_engineer_evaluation_agent = EvaluationAgent(
 )
 
 
-# 11 - Define support functions
+#   Define support functions
 def product_manager_support_function(query: str) -> str:
     response_from_knowledge_agent = product_manager_knowledge_agent.respond(query)
     validated = product_manager_evaluation_agent.evaluate(response_from_knowledge_agent)
@@ -164,7 +164,7 @@ def development_engineer_support_function(query: str) -> str:
     return validated["final_response"]
 
 
-#10 - Instantiate Routing Agent + routes
+# Instantiate Routing Agent + routes
 routes = [
     {
         "name": "Product Manager",
@@ -195,7 +195,7 @@ routing_agent = RoutingAgent(openai_api_key, routes)
 routing_agent.agents = routes
 
 
-#12 - Implement workflow
+# Implement workflow
 workflow_prompt = (
     "Create a structured project plan for the Email Router product from the specification. "
     "First define user stories, then define product features, then define engineering tasks."
